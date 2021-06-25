@@ -1,10 +1,11 @@
-# CGLib - Coding Game Library
+# CGLib - CodinGame Library
 
 This is a small library of functions/objects that have already proven useful
 for me in solving some of the problems in [CodinGame][CG].
 
-It is in [Raku][], which to my knowledge is not supported in [CodinGame][]; it
-starts as an attempt to *translate* [cglib-perl][] actually, for study and fun.
+It is in [Raku][], which to my knowledge is not supported in [CodinGame][CG];
+it starts as an attempt to *translate* [cglib-perl][] actually, for study and
+fun.
 
 The code is not particularly robust nor readable. Actually, the design
 follows the following guidelines:
