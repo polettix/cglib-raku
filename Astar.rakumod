@@ -1,18 +1,11 @@
 use v6;
 class Astar {
-   has &!distance;
-   has &!successors;
-   has &!heuristic;
-   has &!identifier;
-
-   class PriorityQueue { ... }
-
-   submethod BUILD (:&!distance!, :&!successors!,
-      :&!heuristic = &!distance, :&!identifier = {~$^a}) {}
+   has (&!distance, &!successors, &!heuristic, &!identifier);
 
    method best-path ($start!, $goal!) {
       my ($id, $gid) = ($start, $goal).map: {&!identifier($^a)};
       my %node-for = $id => {pos => $start, g => 0};
+      class PriorityQueue { ... }
       my $queue = PriorityQueue.new;
       $queue.enqueue($id, 0);
       while ! $queue.is-empty {
@@ -37,6 +30,9 @@ class Astar {
       return ();
    }
 
+   submethod BUILD (:&!distance!, :&!successors!,
+      :&!heuristic = &!distance, :&!identifier = {~$^a}) {}
+
    method !unroll ($node is copy, %node-for) {
       my @path = $node<pos>;
       while $node<p>:exists {
@@ -48,9 +44,9 @@ class Astar {
 
    class PriorityQueue {
       has @!items  = ('-');
-      method is-empty { @!items.elems == 1 }
+      method is-empty { @!items.end < 1 }
       method dequeue () { # includes "sink"
-         return unless @!items.end;
+         return if @!items.end < 1;
          my $r = @!items.end > 1 ?? @!items.splice(1, 1, @!items.pop)[0] !! @!items.pop;
          my $k = 1;
          while (my $j = $k * 2) <= @!items.end {
