@@ -1,4 +1,19 @@
 use v6;
+
+=begin pod
+=begin SYNOPSIS
+   # Arguments, M for Mandatory, O for Optional
+   my $nav = Astar.new(
+      distance   => -> $v, $w {}, # M, takes 2 nodes, returns number
+      successors => -> $v {},     # M, takes 1 node, returns nodes list
+      heuristic  => -> $v, $w {}, # O, defaults to distance
+      identifier => -> $v {},     # O, takes 1 node, returns id,
+   );
+   my $path1 = $nav.best-path($start, $goal); # nodes in the graph
+   my $path2 = $nav.best-path($here, $there); # other nodes, same graph
+=end SYNOPSIS
+=end pod
+
 class Astar {
    has (&!distance, &!successors, &!heuristic, &!identifier);
 
