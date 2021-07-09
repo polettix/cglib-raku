@@ -1,4 +1,19 @@
 use v6;
+
+=begin pod
+=begin SYNOPSIS
+   my $queue = BasicPriorityQueue.new(
+      before => -> $x, $y {}, # Opt, tells if $x is before $y
+      items  => [],           # Opt, initial items to enqueueu
+   );
+   $queue.enqueue($_) for 10, 4, 7;            # add elements
+   $queue.top.put;                             # 4, peek and keep
+   $queue.size.put;                            # 3
+   $queue.dequeue.put while ! $queue.is-empty; # 4, 7, 10
+   $queue.elems.put;                           # 0, same as size
+=end SYNOPSIS
+=end pod
+
 class BasicPriorityQueue {
    has @!items;
    has &!before;
