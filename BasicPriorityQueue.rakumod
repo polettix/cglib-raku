@@ -32,7 +32,8 @@ class BasicPriorityQueue {
 
    method dequeue () { # includes "sink"
       return unless @!items.end;
-      my $r = @!items.end > 1 ?? @!items.splice(1, 1, @!items.pop)[0] !! @!items.pop;
+      my $r = @!items.pop;
+      ($r, @!items[1]) = (@!items[1], $r) if @!items.end >= 1;
       my $k = 1;
       while (my $j = $k * 2) <= @!items.end {
          ++$j if $j < @!items.end && &!before(@!items[$j + 1], @!items[$j]);
