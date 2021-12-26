@@ -31,7 +31,7 @@ class PriorityQueue {
    method enqueue ($obj) {
       my $id = &!id-of($obj);
       %!item-of{$id} = $obj; # keep track of this item
-      my $k = %!pos-of{$id} ||= { @!items.push: $obj; @!items.end }();
+      @!items[my $k = %!pos-of{$id} ||= @!items.end + 1] = $obj;
       self!adjust($k);
       return $id;
    }
